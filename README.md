@@ -6,31 +6,52 @@ Sampler is a tool for shell commands execution, visualization and alerting. Conf
 ![sampler](https://user-images.githubusercontent.com/6069066/56404396-70b14d00-6234-11e9-93cd-54461bf40c96.gif)
 
 ## Why do I need it?
-One can sample any dynamic process right from the terminal - observe changes in the database, monitor MQ in-flight messages,  trigger a deployment script and get notification when it's done. 
+One can sample any dynamic process right from the terminal — observe changes in the database, monitor MQ in-flight messages,  trigger a deployment script and get notification when it's done. 
 
-If there is a way to get a metric using a shell command - then it can be visualized with Sampler momentarily.
+If there is a way to get a metric using a shell command, then it can be visualized with Sampler momentarily.
 
 ## Installation
 
 ### macOS
 ```bash
-brew cask install sampler
+brew install sampler
 ```
 or
 ```bash
-sudo curl -Lo /usr/local/bin/sampler https://github.com/sqshq/sampler/releases/download/v1.0.3/sampler-1.0.3-darwin-amd64
+sudo curl -Lo /usr/local/bin/sampler https://github.com/sqshq/sampler/releases/download/v1.1.0/sampler-1.1.0-darwin-amd64
 sudo chmod +x /usr/local/bin/sampler
 ```
 ### Linux
 ```bash
-sudo wget https://github.com/sqshq/sampler/releases/download/v1.0.3/sampler-1.0.3-linux-amd64 -O /usr/local/bin/sampler
+sudo wget https://github.com/sqshq/sampler/releases/download/v1.1.0/sampler-1.1.0-linux-amd64 -O /usr/local/bin/sampler
 sudo chmod +x /usr/local/bin/sampler
 ```
 Note: `libasound2-dev` system library is required to be installed for Sampler to play a [trigger](https://github.com/sqshq/sampler#triggers) sound tone. Usually the library is in place, but if not - you can install it with your favorite package manager, e.g `apt install libasound2-dev`
+#### Packaging status
+- [Fedora](https://apps.fedoraproject.org/packages/golang-github-sqshq-sampler) `sudo dnf install golang-github-sqshq-sampler` (F31+)
 ### Windows (experimental)
 Recommended to use with advanced console emulators, e.g. [Cmder](https://cmder.net/)
 
-[Download .exe](https://github.com/sqshq/sampler/releases/download/v1.0.3/sampler-1.0.3-windows-amd64.exe)
+Via [Chocolatey](https://chocolatey.org/docs)
+```powershell
+choco install sampler
+```
+or
+
+[Download .exe](https://github.com/sqshq/sampler/releases/download/v1.1.0/sampler-1.1.0-windows-amd64.exe)
+
+### Docker
+
+```
+# Create a configuration file
+vim config.yml
+
+# Build the container image
+docker build --tag sampler .
+
+# Run a container
+docker run --interactive --tty --volume $(pwd)/config.yml:/root/config.yml sampler --config /root/config.yml
+```
 
 ## Usage
 You specify shell commands, Sampler executes them with a required rate. The output is used for visualization.
@@ -46,7 +67,7 @@ Sampler is by no means an alternative to full-scale monitoring systems, but rath
 If spinning up and configuring [Prometheus with Grafana](https://prometheus.io) is complete overkill for you task, Sampler might be the right solution. No servers, no databases, no deploy - you specify shell commands, and it just works.
 
 ## Then it should be installed on every server I monitor?
-No, you can run Sampler on local, but still gather telemetry from multiple remote machines. Any visualization might have `init` command, where you can ssh to a remote server. See [SSH example](https://github.com/sqshq/sampler#ssh)
+No, you can run Sampler on local, but still gather telemetry from multiple remote machines. Any visualization might have `init` command, where you can ssh to a remote server. See the [SSH example](https://github.com/sqshq/sampler#ssh)
 
 ## Contents
 
